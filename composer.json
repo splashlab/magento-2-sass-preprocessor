@@ -1,0 +1,29 @@
+{
+    "name": "splashlab/magento-2-sass-preprocessor",
+    "description": "Sass CSS preprocessor for Magento 2, to enable using the Sass in themes",
+    "homepage": "https://github.com/splashlab/magento-2-sass-preprocessor",
+    "type": "magento2-module",
+    "version": "100.0.2",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "support": {
+        "issues": "https://github.com/splashlab/magento-2-sass-preprocessor/issues",
+        "source": "https://github.com/splashlab/magento-2-sass-preprocessor"
+    },
+    "require": {
+        "php": "7.0.2|7.0.4|~7.0.6|~7.1.0",
+        "magento/framework": "*",
+        "magento/magento-composer-installer": "*",
+        "leafo/scssphp": "^0.6.7"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "SplashLab\\SassPreprocessor\\": ""
+        }
+    }
+}

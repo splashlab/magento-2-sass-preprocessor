@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="AlternativeSourceProcessors">
+        <arguments>
+            <argument name="alternatives" xsi:type="array">
+                <item name="scss" xsi:type="array">
+                    <item name="class" xsi:type="string">SplashLab\SassPreprocessor\Preprocessor\Adapter\Scss\Processor</item>
+                </item>
+                <item name="less" xsi:type="array">
+                    <item name="after" xsi:type="string">scss</item>
+                    <item name="class" xsi:type="string">Magento\Framework\Css\PreProcessor\Adapter\Less\Processor</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="SplashLab\SassPreprocessor\Preprocessor\Instruction\MagentoImport">
+        <arguments>
+            <argument name="fileSource" xsi:type="object">Magento\Framework\Css\PreProcessor\File\Collector\Aggregated</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="PreProcessorInstructionImportForBaseFlowScss" type="SplashLab\SassPreprocessor\Preprocessor\Instruction\Import">
+        <arguments>
+            <argument name="relatedFileGenerator" xsi:type="object">FileGeneratorPublicationDecoratorForBaseFlow</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AssetPreProcessorPool" type="Magento\Framework\View\Asset\PreProcessor\Pool">
+        <arguments>
+            <argument name="preprocessors" xsi:type="array">
+                <item name="scss" xsi:type="array">
+                    <item name="magento_import" xsi:type="array">
+                        <item name="class" xsi:type="string">SplashLab\SassPreprocessor\Preprocessor\Instruction\MagentoImport</item>
+                    </item>
+                    <item name="import" xsi:type="array">
+                        <item name="after" xsi:type="string">magento_import</item>
+                        <item name="class" xsi:type="string">PreProcessorInstructionImportForBaseFlowScss</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="PreProcessorInstructionImportForSourceThemeDeployScss" type="SplashLab\SassPreprocessor\Preprocessor\Instruction\Import">
+        <arguments>
+            <argument name="relatedFileGenerator" xsi:type="object">FileGeneratorPublicationDecoratorForSourceThemeDeploy</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AssetPreProcessorPoolForSourceThemeDeploy" type="Magento\Framework\View\Asset\PreProcessor\Pool">
+        <arguments>
+            <argument name="preprocessors" xsi:type="array">
+                <item name="scss" xsi:type="array">
+                    <item name="magento_import" xsi:type="array">
+                        <item name="class" xsi:type="string">SplashLab\SassPreprocessor\Preprocessor\Instruction\MagentoImport</item>
+                    </item>
+                    <item name="import" xsi:type="array">
+                        <item name="after" xsi:type="string">magento_import</item>
+                        <item name="class" xsi:type="string">PreProcessorInstructionImportForSourceThemeDeployScss</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>
